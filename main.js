@@ -14,14 +14,25 @@ for(var i=0; i<allQuestions.length; i++){  // Display navigation
   document.getElementById("navigation").appendChild(seqSpan);
 }
 
+var qInd;
+if (qInd===null || qInd===undefined){ // initialize qInd
+  qInd = 0;
+}
+
 getQuestion(); // call the function here to display the first question
 
-var qInd;
 function getQuestion(){
-  if (qInd===null || qInd===undefined){ // initialize qInd
-    qInd = 0;
+
+  if(qInd>0){ // prevent from goinf forward if no radio btn was checked
+    if(allQuestions[qInd-1].userAnswer==undefined){
+      alert("choose");
+      return
+    }
   }
   if(qInd<allQuestions.length){ // interates questions
+      if(qInd>0){ // call remove() except the first time
+        remove();
+      }
     // Get and display question.
     var myP = document.createElement("p"); 
     myP.setAttribute("id", "myPId");
@@ -135,8 +146,20 @@ function navigate(){
       choiceSpan.appendChild(choiceText); 
       document.getElementById("choiceBlock").appendChild(choiceSpan);
 
-      qInd = navSpan; // for proper navigation        
+      qInd = parseInt(navSpan); // for proper navigation 
+
     } // the end of for loop
+    
+    // test highlight
+    var mySeqSpans = document.getElementsByClassName("seqSpan")
+    for (var i=0; i<mySeqSpans.length; i++){
+      if(mySeqSpans[i].innerHTML==qInd){
+        mySeqSpans[i].style.color = "#ff1a1a";
+      }else{
+        mySeqSpans[i].style.color = "black";
+      }
+    } 
+
     if(navSpan==5){  // code repetition. Display "finsh" at the last question
       document.getElementById("next").innerHTML = "Finish"; console.log("change next to finish");
     }else{
@@ -145,6 +168,10 @@ function navigate(){
   } // the end of if condition allQuestions[navSpan-1].userAnswer
 } // navigate()
 function back(){ // nned to prevent from error when going back
+  if(qInd<=1){
+    return
+  }
+  remove();
   qInd = qInd-2;
   getQuestion();
 }
@@ -156,24 +183,21 @@ function displayFinish(){
   }
 }
 function highlight(){
-  mySeqSpans = document.getElementsByClassName("seqSpan")
+  var mySeqSpans = document.getElementsByClassName("seqSpan")
   for (var i=0; i<mySeqSpans.length; i++){
     if(mySeqSpans[i].innerHTML==qInd+1){
       mySeqSpans[i].style.color = "#ff1a1a";
     }else{
       mySeqSpans[i].style.color = "black";
     }
-    if(allQuestions[qInd].userAnswer!=undefined){
-      mySeqSpans[i].style.cursor = "pointer"; 
-    }
   } 
 }
 
-document.getElementById("next").addEventListener("click", remove);
+//document.getElementById("next").addEventListener("click", remove);
 document.getElementById("next").addEventListener("click", getQuestion);
 document.getElementById("navigation").addEventListener("click", navigate);
  
-document.getElementById("back").addEventListener("click", remove);
+//document.getElementById("back").addEventListener("click", remove);
 document.getElementById("back").addEventListener("click", back);
 
 document.getElementById("choiceBlock").addEventListener("click", getAnswer);
