@@ -22,6 +22,18 @@ function getQuestion(){
     qInd = 0;
   }
   if(qInd<allQuestions.length){ // interates questions
+    // css display different cursor on navigation nums when not allowed to go
+    if(qInd>0){
+      var myNavs = document.getElementsByClassName("seqSpan"); 
+      var myNavsLength = myNavs.length;
+      var navsI=0;
+      while(navsI<myNavsLength){
+        if(allQuestions[qInd-1].userAnswer && myNavs[navsI].innerHTML == qInd){ //  Need to change cursor to pointer only to seqSpan which corresponds to question with answer
+          myNavs[navsI].style.cursor = "pointer"; 
+        }
+        navsI++
+      }
+    }
     // Get and display question.
     var myP = document.createElement("p"); 
     myP.setAttribute("id", "myPId");
@@ -31,7 +43,7 @@ function getQuestion(){
     for(var choiceInd=0; choiceInd<allQuestions[qInd].choices.length; choiceInd++){ // iterates through choices
       var answer = allQuestions[qInd].userAnswer // save the user answer
       if(answer==allQuestions[qInd].choices[choiceInd]){ 
-        // Display checked radio btns
+        // Display checked radio btns.
         var myRadio = document.createElement("input");
         myRadio.setAttribute("type", "radio");
         myRadio.setAttribute("id", "radioId");
@@ -41,7 +53,7 @@ function getQuestion(){
         myRadio.checked = true // check the radio btn
         document.getElementById("choiceBlock").appendChild(myRadio);
       }else{ 
-        // display unchecked checkboxes
+        // Display unchecked checkboxes.
         var myRadio = document.createElement("input");
         myRadio.setAttribute("type", "radio");
         myRadio.setAttribute("id", "radioId");
@@ -60,27 +72,20 @@ function getQuestion(){
       choiceSpan.appendChild(choiceText); 
       document.getElementById("choiceBlock").appendChild(choiceSpan);
     } // iterates through choices 
-
     qInd++;
+    displayFinish();
   }else{ // qInd<allQuestions.length
     getResult();   
   }  
 } // getQuestion()
-
-
 
 function remove(){
   document.getElementById("questionBlock").innerHTML = "";
   document.getElementById("choiceBlock").innerHTML = "";
 }
 function getAnswer(){
-  var myRadios = document.getElementsByTagName("input");
-  console.log(myRadios.length);
-  for (var i = 0; i < myRadios.length; i++) {
-    if(myRadios[i].checked){
-      allQuestions[qInd-1].userAnswer = myRadios[i].getAttribute("value").toString();
-    }
-  }
+  allQuestions[qInd-1].userAnswer = event.target.getAttribute("value");
+  console.log(allQuestions[qInd-1].userAnswer);
 }
 function getResult(){
   var numOfCorAnswers = 0;
@@ -143,16 +148,25 @@ function navigate(){
     }
   } // the end of if condition allQuestions[navSpan-1].userAnswer
 } // navigate()
-function back(){
+function back(){ // nned to prevent from error when going back
   qInd = qInd-2;
   getQuestion();
 }
+function displayFinish(){
+  if(qInd==5){
+  document.getElementById("next").innerHTML = "Finish"; console.log("change next to finish");
+  }else{
+    document.getElementById("next").innerHTML = "next";
+  }
+}
 
-document.getElementById("next").addEventListener("click", getAnswer);
 document.getElementById("next").addEventListener("click", remove);
 document.getElementById("next").addEventListener("click", getQuestion);
 document.getElementById("navigation").addEventListener("click", navigate);
  
-document.getElementById("back").addEventListener("click", getAnswer);
 document.getElementById("back").addEventListener("click", remove);
 document.getElementById("back").addEventListener("click", back);
+
+document.getElementById("choiceBlock").addEventListener("click", getAnswer);
+
+

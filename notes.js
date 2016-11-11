@@ -9,14 +9,17 @@ var allQuestions = [
 
 
 quiz_single_choice
-
-- nav probelm if clicking next after nav, bringing new question without an answer of course
+- display result on the last page
+- highlight current queston in nav
+- if(qInd>=2){} does not work on event listerne
 - make results of the test with correct and wrong answers and its numbers
 
 
 
-
-
+Done.
+- if you check and do not click next, checked box won't be saved.
+- nav probelm if clicking next after nav, bringing new question without an answer of course
+- css cursor
 
 
 
