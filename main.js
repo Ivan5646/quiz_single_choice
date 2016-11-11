@@ -22,18 +22,6 @@ function getQuestion(){
     qInd = 0;
   }
   if(qInd<allQuestions.length){ // interates questions
-    // css display different cursor on navigation nums when not allowed to go
-    if(qInd>0){
-      var myNavs = document.getElementsByClassName("seqSpan"); 
-      var myNavsLength = myNavs.length;
-      var navsI=0;
-      while(navsI<myNavsLength){
-        if(allQuestions[qInd-1].userAnswer && myNavs[navsI].innerHTML == qInd){ //  Need to change cursor to pointer only to seqSpan which corresponds to question with answer
-          myNavs[navsI].style.cursor = "pointer"; 
-        }
-        navsI++
-      }
-    }
     // Get and display question.
     var myP = document.createElement("p"); 
     myP.setAttribute("id", "myPId");
@@ -71,7 +59,8 @@ function getQuestion(){
       var choiceText = document.createTextNode(choiseValue);
       choiceSpan.appendChild(choiceText); 
       document.getElementById("choiceBlock").appendChild(choiceSpan);
-    } // iterates through choices 
+    } // iterates through choices   
+    highlight(); // highlight current question number in naviagation
     qInd++;
     displayFinish();
   }else{ // qInd<allQuestions.length
@@ -86,6 +75,13 @@ function remove(){
 function getAnswer(){
   allQuestions[qInd-1].userAnswer = event.target.getAttribute("value");
   console.log(allQuestions[qInd-1].userAnswer);
+  // css change cursor
+  mySeqSpansAn = document.getElementsByClassName("seqSpan")
+  for (var i=0; i<mySeqSpansAn.length; i++){
+    if(allQuestions[qInd-1].userAnswer!=undefined && mySeqSpansAn[i].innerHTML == qInd){
+      mySeqSpansAn[i].style.cursor = "pointer"; 
+    }
+  } 
 }
 function getResult(){
   var numOfCorAnswers = 0;
@@ -158,6 +154,19 @@ function displayFinish(){
   }else{
     document.getElementById("next").innerHTML = "next";
   }
+}
+function highlight(){
+  mySeqSpans = document.getElementsByClassName("seqSpan")
+  for (var i=0; i<mySeqSpans.length; i++){
+    if(mySeqSpans[i].innerHTML==qInd+1){
+      mySeqSpans[i].style.color = "#ff1a1a";
+    }else{
+      mySeqSpans[i].style.color = "black";
+    }
+    if(allQuestions[qInd].userAnswer!=undefined){
+      mySeqSpans[i].style.cursor = "pointer"; 
+    }
+  } 
 }
 
 document.getElementById("next").addEventListener("click", remove);
