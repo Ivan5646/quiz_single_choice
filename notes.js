@@ -9,7 +9,8 @@ var allQuestions = [
 
 
 quiz_single_choice
-- display result on the last page. Make results of the test with correct and wrong answers and its numbers
+- display result on the last page. highlight correctAnswers with green , incorrect userAnswers with red
+
 - if(qInd>=2){} does not work on event listerne ?
 
 
@@ -27,27 +28,6 @@ Done.
 
 
 
-
-
-      var answer = allQuestions[qIndex].userAnswer // save the user answer
-      if(answer==allQuestions[qIndex].choices[choiceInd]){ 
-        // create checked radio btn, append it to question in the questionDiv
-        var myRadio = document.createElement("input");
-        myRadio.setAttribute("type", "radio");
-        myRadio.setAttribute("id", "radioId");
-        myRadio.setAttribute("name", "myBtns");
-        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
-        myRadio.setAttribute("value", currentChoice);
-        myRadio.checked = true // check the radio btn
-      }else{ 
-        // create unchecked radio btn, append it to question in the questionDiv
-        var myRadio = document.createElement("input");
-        myRadio.setAttribute("type", "radio");
-        myRadio.setAttribute("id", "radioId");
-        myRadio.setAttribute("name", "myBtns");
-        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
-        myRadio.setAttribute("value", currentChoice);
-      }
 
 
 

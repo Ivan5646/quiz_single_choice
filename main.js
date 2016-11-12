@@ -215,7 +215,8 @@ function showResult(){
     questionP.appendChild(questionText); // appened, not diplayed yet
     var radioDiv  = document.createElement("div"); // div for radio btns and choices    
     for(var choiceInd=0; choiceInd<allQuestions[qIndex].choices.length; choiceInd++){ // iterates through choices
-      var answer = allQuestions[qIndex].userAnswer // save the user answer
+      var choiceSpan = document.createElement("span");  // create span element
+      var answer = allQuestions[qIndex].userAnswer; // save the user answer
       if(answer==allQuestions[qIndex].choices[choiceInd]){ 
         // create checked radio btn, append it to question in the questionDiv
         var myRadio = document.createElement("input");
@@ -225,6 +226,12 @@ function showResult(){
         var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
         myRadio.setAttribute("value", currentChoice);
         myRadio.checked = true // check the radio btn
+        //color answer
+        if(answer==allQuestions[qIndex].correctAnswer){
+          choiceSpan.style.color = "#00e600";
+        }else{
+          choiceSpan.style.color = "red";
+        }
       }else{ 
         // create unchecked radio btn, append it to question in the questionDiv
         var myRadio = document.createElement("input");
@@ -233,16 +240,34 @@ function showResult(){
         myRadio.setAttribute("name" + "qIndex", "myBtns");
         var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
         myRadio.setAttribute("value", currentChoice);
+        // make green correct answer thaw was not checked
+        if(allQuestions[qIndex].userAnswer==allQuestions[qIndex].correctAnswer){ 
+          choiceSpan.style.color = "#00e600";
+        }/*else{
+
+        }*/
       }
       // append radiobtn value as text to the radio btn 
       myRadio.disabled = "true"; // disable checking / unchecking
-      var choiceSpan = document.createElement("span");  // create span element
+      
       var choiceValue = myRadio.getAttribute("value"); // get the choice item from radio btn value
       choiceValue = choiceValue.toString();
       var choiceText = document.createTextNode(choiceValue);
       choiceSpan.appendChild(choiceText);
       radioDiv.appendChild(myRadio);
       radioDiv.appendChild(choiceSpan); //append choice to the radio btn. 
+
+      /*// style correct and incorrect answers
+      function colorAnswer(){
+      // var answer = allQuestions[qIndex].userAnswer;
+        if(answer==allQuestions[qIndex].correctAnswer){
+          choiceSpan.style.color = "green";
+        }else{
+          choiceSpan.style.color = "red";
+        }
+      }*/
+
+
     } // iterates through choices   
     // display everything here
     wrapDiv.appendChild(questionP);
