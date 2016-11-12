@@ -1,12 +1,17 @@
 var allQuestions = [
   {sequence: 1, question: "0. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
-  correctAnswer:"Theresa May"},
-  {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], correctAnswer:"London"},
-  {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], correctAnswer:"Moscow"},
-  {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], correctAnswer:"Gagarin"},
-  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
+  correctAnswer:"Theresa May", userAnswer: "Theresa May"},
+  {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
+  correctAnswer:"London", userAnswer: "Paris"},
+  {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
+  correctAnswer:"Moscow", userAnswer: "Prague"},
+  {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
+  correctAnswer:"Gagarin", userAnswer: "Gagarin"},
+  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama", 
+  userAnswer: "Clinton"},
 ];
 
+/*
 for(var i=0; i<allQuestions.length; i++){  // Display navigation
   var seqSpan = document.createElement("span");
   seqSpan.setAttribute("class", "seqSpan");
@@ -46,7 +51,7 @@ function getQuestion(){
         var myRadio = document.createElement("input");
         myRadio.setAttribute("type", "radio");
         myRadio.setAttribute("id", "radioId");
-        myRadio.setAttribute("name", "myBtns");
+        myRadio.setAttribute("name" + "qInd", "myBtns");
         var currentChoice = allQuestions[qInd].choices[choiceInd]; //  get the choice item. 
         myRadio.setAttribute("value", currentChoice);
         myRadio.checked = true // check the radio btn
@@ -56,7 +61,7 @@ function getQuestion(){
         var myRadio = document.createElement("input");
         myRadio.setAttribute("type", "radio");
         myRadio.setAttribute("id", "radioId");
-        myRadio.setAttribute("name", "myBtns");
+        myRadio.setAttribute("name"+ "qInd", "myBtns");
         var currentChoice = allQuestions[qInd].choices[choiceInd]; //  get the choice item. 
         myRadio.setAttribute("value", currentChoice);
         document.getElementById("choiceBlock").appendChild(myRadio);
@@ -75,7 +80,11 @@ function getQuestion(){
     qInd++;
     displayFinish();
   }else{ // qInd<allQuestions.length
-    getResult();   
+    getResult();
+    remove();
+    document.getElementById("navigation").innerHTML = "";  
+    document.getElementById("next").parentNode.removeChild(document.getElementById("next"));
+    document.getElementById("next").parentNode.removeChild(document.getElementById("back"));
   }  
 } // getQuestion()
 
@@ -192,14 +201,65 @@ function highlight(){
     }
   } 
 }
+*/
 
-//document.getElementById("next").addEventListener("click", remove);
+
+function showResult(){
+  document.getElementById("back").parentNode.removeChild( document.getElementById("back"));
+  document.getElementById("next").parentNode.removeChild( document.getElementById("next"));
+  for(var qIndex=0; qIndex<allQuestions.length; qIndex++){ // iterates questions 
+    // create a questionDiv, append the question
+    var wrapDiv = document.createElement("div"); // create a div for each question and its choices
+    var questionP = document.createElement("p");  // create question p
+    var questionText = document.createTextNode(allQuestions[qIndex].question); // save current question to the p
+    questionP.appendChild(questionText); // appened, not diplayed yet
+    var radioDiv  = document.createElement("div"); // div for radio btns and choices    
+    for(var choiceInd=0; choiceInd<allQuestions[qIndex].choices.length; choiceInd++){ // iterates through choices
+      var answer = allQuestions[qIndex].userAnswer // save the user answer
+      if(answer==allQuestions[qIndex].choices[choiceInd]){ 
+        // create checked radio btn, append it to question in the questionDiv
+        var myRadio = document.createElement("input");
+        myRadio.setAttribute("type", "radio");
+        myRadio.setAttribute("id", "radioId");
+        myRadio.setAttribute("name" + "qIndex", "myBtns");
+        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
+        myRadio.setAttribute("value", currentChoice);
+        myRadio.checked = true // check the radio btn
+      }else{ 
+        // create unchecked radio btn, append it to question in the questionDiv
+        var myRadio = document.createElement("input");
+        myRadio.setAttribute("type", "radio");
+        myRadio.setAttribute("id", "radioId");
+        myRadio.setAttribute("name" + "qIndex", "myBtns");
+        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
+        myRadio.setAttribute("value", currentChoice);
+      }
+      // append radiobtn value as text to the radio btn 
+      myRadio.disabled = "true"; // disable checking / unchecking
+      var choiceSpan = document.createElement("span");  // create span element
+      var choiceValue = myRadio.getAttribute("value"); // get the choice item from radio btn value
+      choiceValue = choiceValue.toString();
+      var choiceText = document.createTextNode(choiceValue);
+      choiceSpan.appendChild(choiceText);
+      radioDiv.appendChild(myRadio);
+      radioDiv.appendChild(choiceSpan); //append choice to the radio btn. 
+    } // iterates through choices   
+    // display everything here
+    wrapDiv.appendChild(questionP);
+    wrapDiv.appendChild(radioDiv);
+    var body = document.body;
+    body.appendChild(wrapDiv);
+  } // for loop iterate quetions qIndex<allQuestions.length
+}
+
+showResult();
+
+/*
 document.getElementById("next").addEventListener("click", getQuestion);
 document.getElementById("navigation").addEventListener("click", navigate);
  
-//document.getElementById("back").addEventListener("click", remove);
 document.getElementById("back").addEventListener("click", back);
 
 document.getElementById("choiceBlock").addEventListener("click", getAnswer);
-
+*/
 

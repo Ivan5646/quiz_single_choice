@@ -9,13 +9,14 @@ var allQuestions = [
 
 
 quiz_single_choice
-- display result on the last page
-- if(qInd>=2){} does not work on event listerne
-- make results of the test with correct and wrong answers and its numbers
+- display result on the last page. Make results of the test with correct and wrong answers and its numbers
+- if(qInd>=2){} does not work on event listerne ?
+
 
 
 
 Done.
+- do not allow user to check radio btns on the result page
 - highlight current queston in nav
 - if you check and do not click next, checked box won't be saved.
 - nav probelm if clicking next after nav, bringing new question without an answer of course
@@ -28,6 +29,25 @@ Done.
 
 
 
+      var answer = allQuestions[qIndex].userAnswer // save the user answer
+      if(answer==allQuestions[qIndex].choices[choiceInd]){ 
+        // create checked radio btn, append it to question in the questionDiv
+        var myRadio = document.createElement("input");
+        myRadio.setAttribute("type", "radio");
+        myRadio.setAttribute("id", "radioId");
+        myRadio.setAttribute("name", "myBtns");
+        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
+        myRadio.setAttribute("value", currentChoice);
+        myRadio.checked = true // check the radio btn
+      }else{ 
+        // create unchecked radio btn, append it to question in the questionDiv
+        var myRadio = document.createElement("input");
+        myRadio.setAttribute("type", "radio");
+        myRadio.setAttribute("id", "radioId");
+        myRadio.setAttribute("name", "myBtns");
+        var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
+        myRadio.setAttribute("value", currentChoice);
+      }
 
 
 
