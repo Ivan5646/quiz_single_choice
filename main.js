@@ -241,11 +241,9 @@ function showResult(){
         var currentChoice = allQuestions[qIndex].choices[choiceInd]; //  get the choice item. 
         myRadio.setAttribute("value", currentChoice);
         // make green correct answer thaw was not checked
-        if(allQuestions[qIndex].userAnswer==allQuestions[qIndex].correctAnswer){ 
+        if(allQuestions[qIndex].choices[choiceInd]==allQuestions[qIndex].correctAnswer){ 
           choiceSpan.style.color = "#00e600";
-        }/*else{
-
-        }*/
+        }
       }
       // append radiobtn value as text to the radio btn 
       myRadio.disabled = "true"; // disable checking / unchecking
