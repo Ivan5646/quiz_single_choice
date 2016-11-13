@@ -29,7 +29,7 @@ function getQuestion(){
 
   if(qInd>0){ // prevent from goinf forward if no radio btn was checked
     if(allQuestions[qInd-1].userAnswer==undefined){
-      alert("choose");
+      alert("please, make a choice");
       return
     }
   }
