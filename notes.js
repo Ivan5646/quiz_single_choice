@@ -23,10 +23,13 @@ var allQuestions = [
 
 
 quiz_single_choice
+- num of questions
 - style the quiz
 
 
 
+Improve:
+- let user to create his own quiz: input questions and asnwers.
 
 
 Done.
@@ -58,7 +61,7 @@ minor problems
 
 
 
-
+Multiple choice quiz notes
 // to access a property of an object...
 allQuestions[0].choices[0]
 

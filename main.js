@@ -209,7 +209,7 @@ function showResult(){
   document.getElementById("next").parentNode.removeChild( document.getElementById("next"));
   // calculate and display the result 
   var body = document.body;
-  var result = /*numOfCorAnswers*/ 2 / allQuestions.length * 100;
+  var result = numOfCorAnswers / allQuestions.length * 100;
   var resultP = document.createElement("p");
   resultP.setAttribute("id", "resultPId");
   resultText = document.createTextNode("You score is: " + result + " out of 100");
