@@ -7,16 +7,30 @@ var allQuestions = [
   {sequence: 5, question: "5. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
 ];
 
+//with answers
+var allQuestions = [
+  {sequence: 1, question: "0. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
+  correctAnswer:"Theresa May", userAnswer: "Tony Blair"},
+  {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
+  correctAnswer:"London", userAnswer: "Paris"},
+  {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
+  correctAnswer:"Moscow", userAnswer: "Prague"},
+  {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
+  correctAnswer:"Gagarin", userAnswer: "Gagarin"},
+  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama", 
+  userAnswer: "Clinton"},
+];
+
 
 quiz_single_choice
-- display result on the last page. highlight correctAnswers with green , incorrect userAnswers with red
+- style the quiz
 
-- if(qInd>=2){} does not work on event listerne ?
 
 
 
 
 Done.
+- display result on the last page. highlight correctAnswers with green , incorrect userAnswers with red
 - do not allow user to check radio btns on the result page
 - highlight current queston in nav
 - if you check and do not click next, checked box won't be saved.
@@ -24,8 +38,8 @@ Done.
 - css cursor
 
 
-
-
+minor problems
+- if(qInd>=2){} does not work on event listerne ?
 
 
 

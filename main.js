@@ -1,17 +1,16 @@
 var allQuestions = [
   {sequence: 1, question: "0. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
-  correctAnswer:"Theresa May", userAnswer: "Theresa May"},
+  correctAnswer:"Theresa May"},
   {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
-  correctAnswer:"London", userAnswer: "Paris"},
+  correctAnswer:"London"},
   {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
-  correctAnswer:"Moscow", userAnswer: "Prague"},
+  correctAnswer:"Moscow"},
   {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
-  correctAnswer:"Gagarin", userAnswer: "Gagarin"},
-  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama", 
-  userAnswer: "Clinton"},
+  correctAnswer:"Gagarin"},
+  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
 ];
 
-/*
+
 for(var i=0; i<allQuestions.length; i++){  // Display navigation
   var seqSpan = document.createElement("span");
   seqSpan.setAttribute("class", "seqSpan");
@@ -83,8 +82,9 @@ function getQuestion(){
     getResult();
     remove();
     document.getElementById("navigation").innerHTML = "";  
-    document.getElementById("next").parentNode.removeChild(document.getElementById("next"));
-    document.getElementById("next").parentNode.removeChild(document.getElementById("back"));
+    /*document.getElementById("next").parentNode.removeChild(document.getElementById("next"));
+    document.getElementById("next").parentNode.removeChild(document.getElementById("back"));*/
+    showResult();
   }  
 } // getQuestion()
 
@@ -201,7 +201,7 @@ function highlight(){
     }
   } 
 }
-*/
+
 
 function showResult(){
   // remove buttons
@@ -270,14 +270,13 @@ function showResult(){
   } // for loop iterate quetions qIndex<allQuestions.length
 }
 
-showResult();
 
-/*
+
 document.getElementById("next").addEventListener("click", getQuestion);
 document.getElementById("navigation").addEventListener("click", navigate);
  
 document.getElementById("back").addEventListener("click", back);
 
 document.getElementById("choiceBlock").addEventListener("click", getAnswer);
-*/
+
 
