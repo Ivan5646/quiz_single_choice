@@ -104,7 +104,7 @@ function getAnswer(){
   } 
 }
 function getResult(){
-  var numOfCorAnswers = 0;
+  numOfCorAnswers = 0;
   var userAnswers = [];
   for(var i=0; i<allQuestions.length; i++){
     if(allQuestions[i].correctAnswer===allQuestions[i].userAnswer){
@@ -203,10 +203,18 @@ function highlight(){
 }
 */
 
-
 function showResult(){
+  // remove buttons
   document.getElementById("back").parentNode.removeChild( document.getElementById("back"));
   document.getElementById("next").parentNode.removeChild( document.getElementById("next"));
+  // calculate and display the result 
+  var body = document.body;
+  var result = /*numOfCorAnswers*/ 2 / allQuestions.length * 100;
+  var resultP = document.createElement("p");
+  resultP.setAttribute("id", "resultPId");
+  resultText = document.createTextNode("You score is: " + result + " out of 100");
+  resultP.appendChild(resultText);
+  body.appendChild(resultP); 
   for(var qIndex=0; qIndex<allQuestions.length; qIndex++){ // iterates questions 
     // create a questionDiv, append the question
     var wrapDiv = document.createElement("div"); // create a div for each question and its choices
@@ -254,23 +262,10 @@ function showResult(){
       choiceSpan.appendChild(choiceText);
       radioDiv.appendChild(myRadio);
       radioDiv.appendChild(choiceSpan); //append choice to the radio btn. 
-
-      /*// style correct and incorrect answers
-      function colorAnswer(){
-      // var answer = allQuestions[qIndex].userAnswer;
-        if(answer==allQuestions[qIndex].correctAnswer){
-          choiceSpan.style.color = "green";
-        }else{
-          choiceSpan.style.color = "red";
-        }
-      }*/
-
-
     } // iterates through choices   
     // display everything here
     wrapDiv.appendChild(questionP);
-    wrapDiv.appendChild(radioDiv);
-    var body = document.body;
+    wrapDiv.appendChild(radioDiv);   
     body.appendChild(wrapDiv);
   } // for loop iterate quetions qIndex<allQuestions.length
 }
