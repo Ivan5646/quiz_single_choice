@@ -1,13 +1,13 @@
 var allQuestions = [
-  {sequence: 1, question: "0. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
+  {sequence: 1, question: "Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
   correctAnswer:"Theresa May"},
-  {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
+  {sequence: 2, question: "What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
   correctAnswer:"London"},
-  {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
+  {sequence: 3, question: "What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
   correctAnswer:"Moscow"},
-  {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
+  {sequence: 4, question: "Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
   correctAnswer:"Gagarin"},
-  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
+  {sequence: 5, question: "Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
 ];
 
 
@@ -26,7 +26,6 @@ if (qInd===null || qInd===undefined){ // initialize qInd
 getQuestion(); // call the function here to display the first question
 
 function getQuestion(){
-
   if(qInd>0){ // prevent from goinf forward if no radio btn was checked
     if(allQuestions[qInd-1].userAnswer==undefined){
       alert("please, make a choice");
@@ -38,6 +37,8 @@ function getQuestion(){
         remove();
       }
     // Get and display question.
+    //var numSpan = document.createElement("span"); 
+
     var myP = document.createElement("p"); 
     myP.setAttribute("id", "myPId");
     document.getElementById("questionBlock").appendChild(myP); // appends empty paragraph
@@ -82,8 +83,6 @@ function getQuestion(){
     getResult();
     remove();
     document.getElementById("navigation").innerHTML = "";  
-    /*document.getElementById("next").parentNode.removeChild(document.getElementById("next"));
-    document.getElementById("next").parentNode.removeChild(document.getElementById("back"));*/
     showResult();
   }  
 } // getQuestion()
@@ -92,7 +91,7 @@ function remove(){
   document.getElementById("questionBlock").innerHTML = "";
   document.getElementById("choiceBlock").innerHTML = "";
 }
-function getAnswer(){
+function getAnswer(event){
   allQuestions[qInd-1].userAnswer = event.target.getAttribute("value");
   console.log(allQuestions[qInd-1].userAnswer);
   // css change cursor
@@ -116,7 +115,7 @@ function getResult(){
   console.log(userAnswers);
 }
 
-function navigate(){
+function navigate(event){
   var mySeq = document.querySelectorAll("#seqSpan");
   var navSpan = event.target.innerHTML; // get the value of the clicked span
   if(allQuestions[navSpan-1].userAnswer){ // make user to navigate only to answered questions
@@ -219,7 +218,7 @@ function showResult(){
     // create a questionDiv, append the question
     var wrapDiv = document.createElement("div"); // create a div for each question and its choices
     var questionP = document.createElement("p");  // create question p
-    var questionText = document.createTextNode(allQuestions[qIndex].question); // save current question to the p
+    var questionText = document.createTextNode(allQuestions[qIndex].sequence + ". " + allQuestions[qIndex].question); // save current question to the p
     questionP.appendChild(questionText); // appened, not diplayed yet
     var radioDiv  = document.createElement("div"); // div for radio btns and choices    
     for(var choiceInd=0; choiceInd<allQuestions[qIndex].choices.length; choiceInd++){ // iterates through choices
@@ -278,5 +277,4 @@ document.getElementById("navigation").addEventListener("click", navigate);
 document.getElementById("back").addEventListener("click", back);
 
 document.getElementById("choiceBlock").addEventListener("click", getAnswer);
-
 

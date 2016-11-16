@@ -1,0 +1,26 @@
+[{
+  "sequence": 1,
+  "question": "0. Who is Prime Minister of the United Kingdom?",
+  "choices": ["Theresa May", "Winston Churchill", "Tony Blair"],
+  "correctAnswer": "Theresa May"
+}, {
+  "sequence": 2,
+  "question": "1. What is the capital of the Great Britain?",
+  "choices": ["Paris", "Warsaw", "London", "Liverpool", "Budapest"],
+  "correctAnswer": "London"
+}, {
+  "sequence": 3,
+  "question": "2. What is the capital of the Russian Federation?",
+  "choices": ["Prague", "Minsk", "Washington", "Moscow"],
+  "correctAnswer": "Moscow"
+}, {
+  "sequence": 4,
+  "question": "3. Who was the first man in space",
+  "choices": ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"],
+  "correctAnswer": "Gagarin"
+}, {
+  "sequence": 5,
+  "question": "4. Who is the President of the USA",
+  "choices": ["Putin", "Psaki", "Clinton", "Obama"],
+  "correctAnswer": "Obama"
+}]

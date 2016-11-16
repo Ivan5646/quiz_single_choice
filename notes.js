@@ -1,10 +1,13 @@
 var allQuestions = [
-  {sequence: 1, question: "1. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Gordon Brown", "Winston Churchill", "Tony Blair"], 
+  {sequence: 1, question: "0. Who is Prime Minister of the United Kingdom?", choices: ["Theresa May", "Winston Churchill", "Tony Blair"], 
   correctAnswer:"Theresa May"},
-  {sequence: 2, question: "2. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], correctAnswer:"London"},
-  {sequence: 3, question: "3. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], correctAnswer:"Moscow"},
-  {sequence: 4, question: "4. Who was the first man in space", choices: ["Armstrong", "Titov", "Gagarin", "Gorbachev"], correctAnswer:"Gagarin"},
-  {sequence: 5, question: "5. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
+  {sequence: 2, question: "1. What is the capital of the Great Britain?", choices: ["Paris", "Warsaw", "London", "Liverpool", "Budapest"], 
+  correctAnswer:"London"},
+  {sequence: 3, question: "2. What is the capital of the Russian Federation?", choices: ["Prague", "Minsk", "Washington", "Moscow"], 
+  correctAnswer:"Moscow"},
+  {sequence: 4, question: "3. Who was the first man in space", choices: ["Armstrong", "Leonov", "Titov", "Gagarin", "Gorbachev"], 
+  correctAnswer:"Gagarin"},
+  {sequence: 5, question: "4. Who is the President of the USA", choices: ["Putin", "Psaki", "Clinton", "Obama"], correctAnswer:"Obama"},
 ];
 
 //with answers
@@ -23,16 +26,31 @@ var allQuestions = [
 
 
 quiz_single_choice
-- num of questions
+- delete the numbers from questions. disaplay them on result page
 - style the quiz
+jssexy
+- Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
+- Use cookies to remember the user, and show a “Welcome, First Name message when the user returns to the quiz.
+Extra see http://javascriptissexy.com/how-to-learn-javascript-properly/
+- boostrap
+- show user s rankins
+- and more
+
+
+
+Unlikely yo fullfil / not completed
+- Store the quiz questions in an external JSON file.
+can't get the data out of the $.ajax function. Spent about 6-8 hours on it. Fuck it. Moving on. Must be looking in the wrong direction.
+
 
 
 
 Improve:
-- let user to create his own quiz: input questions and asnwers.
+- let user create his own quiz: input questions and asnwers.
 
 
 Done.
+- mozilla does not work, other browsers are fine. IE gives a warning though. Event was not defined.
 - display result on the last page. highlight correctAnswers with green , incorrect userAnswers with red
 - do not allow user to check radio btns on the result page
 - highlight current queston in nav
@@ -47,6 +65,94 @@ minor problems
 
 
 
+
+
+Solving problems
+- Retrieve data from external JSON
+http://stackoverflow.com/questions/37717183/how-to-carry-data-after-getjson?rq=1 using promise
+
+http://stackoverflow.com/questions/1739800/variables-set-during-getjson-function-only-accessible-within-function tried almost everythin all shit
+
+
+// this seems to be working. but sync req depreceated by chrome
+$.ajax({        
+  type: 'GET',
+  url: "questions.json",
+  data: {'name':name},
+  async: false,
+  dataType: 'json',
+  success: function (data) {
+    myData = data;
+  }
+});
+
+// getting data, but can't get it out of the $.ajax function
+var myData = [];
+$(document).ready(function(){
+  $.ajax({        
+    type: 'GET',
+    url: "questions.json",
+    data: {'name':name},
+    async: true,
+    dataType: 'json',
+    success: function (data) {
+      myData = data;
+    }
+  });
+});
+  myArray = myData; // empty here
+
+// same situation 
+var myData = [];
+$.getJSON("questions.json", function(data) {
+var myData = data;
+console.log(data);
+});
+
+// at least something fucking sensible. But still can't work with it in my quiz.
+function callback(records) {
+  // do stuff with records.
+ myArray  = records;
+}
+$.getJSON("questions.json", function(data){
+ var recordCollection = data;
+ callback(recordCollection); 
+});
+
+
+http://stackoverflow.com/questions/19706046/how-to-read-an-external-local-json-file-in-javascript nothin useful
+
+load an external JSON file
+http://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript I don't need no alternative to jquery though
+
+
+- Store the quiz questions in an external JSON file. Do it later. It requires http request and running a server, it can be done loclally
+ which does not make much sense or doess it? Chrome prohibits requests locally.
+ main.js:5 Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check https://xhr.spec.whatwg.org/. '
+Fucking finally get my JSON with this code and this JSON. My json is not valid after JSON.stringify(allQuestions); wtf? 
+$.getJSON("questions.json", function(data) { // 200, but no array
+    myJson = data;
+    console.log(data); // this will show the info it in firebug console
+});
+{
+   "line1": "MikeBsocool",
+   "line2": "Typeyournamasd",
+   "line3": "763-345",
+   "num_rows": "15",
+   "num_cols": "3",
+   "bgColorPage": "#f08008",
+   "bgColorFilled": "#08f008",
+   "bgColorEmpty": "#6f00ff"
+}
+
+
+
+
+
+
+//draft
+JSON.stringify(allQuestions)
+"[{"sequence":1,"question":"0. Who is Prime Minister of the United Kingdom?","choices":["Theresa May","Winston Churchill","Tony Blair"],"correctAnswer":"Theresa May"},{"sequence":2,"question":"1. What is the capital of the Great Britain?","choices":["Paris","Warsaw","London","Liverpool","Budapest"],"correctAnswer":"London"},{"sequence":3,"question":"2. What is the capital of the Russian Federation?","choices":["Prague","Minsk","Washington","Moscow"],"correctAnswer":"Moscow"},{"sequence":4,"question":"3. Who was the first man in space","choices":["Armstrong","Leonov","Titov","Gagarin","Gorbachev"],"correctAnswer":"Gagarin"},{"sequence":5,"question":"4. Who is the President of the USA","choices":["Putin","Psaki","Clinton","Obama"],"correctAnswer":"Obama"}]"
 
 
 
