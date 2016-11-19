@@ -26,7 +26,8 @@ var allQuestions = [
 
 
 quiz_single_choice
-- delete the numbers from questions. disaplay them on result page
+- authentificate user
+- make modal windows for login, register forms  
 - style the quiz
 jssexy
 - Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
@@ -50,6 +51,8 @@ Improve:
 
 
 Done.
+- check if the passwords match before form submitting
+- delete the numbers from questions. disaplay them on result page
 - mozilla does not work, other browsers are fine. IE gives a warning though. Event was not defined.
 - display result on the last page. highlight correctAnswers with green , incorrect userAnswers with red
 - do not allow user to check radio btns on the result page
@@ -63,11 +66,19 @@ minor problems
 - if(qInd>=2){} does not work on event listerne ?
 
 
-
+$('#result').html("<br />$('form').serialize():<br />"+ $('form').serialize()+"<br /><br />$('form').serializeArray():<br />" + JSON.stringify($('form').serializeArray()));
 
 
 
 Solving problems
+- Validate the form. Check if the passwords match before form submitting
+Fucking keep failing. Well two options. 1. Dont give a fuck about all the jquery and ajax $("form").submit shit and grab the data with a js funct. 2. Do all that jquery and ajax shit properly passing data to php file?
+1 option worked
+
+
+
+
+
 - Retrieve data from external JSON
 http://stackoverflow.com/questions/37717183/how-to-carry-data-after-getjson?rq=1 using promise
 

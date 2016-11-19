@@ -1,3 +1,8 @@
 button{margin-top: 10px;}
 #secondBlock{display: none;}
 #navigation span{margin-right: 6px; display: inline-block; background-color: #e6e6e6; padding: 2px; cursor: not-allowed;}
+form{margin-bottom: 8px;}
+#register{display: none;}
+#logIn{display: none;}
+#regLog{float: right;}
+#signIn, #signUp{text-decoration: underline; cursor: pointer; color:blue;}

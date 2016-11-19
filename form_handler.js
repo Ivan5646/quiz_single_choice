@@ -1,0 +1,1 @@
+var userName = document.querySelector("#register input[name=uname]");

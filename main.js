@@ -278,3 +278,66 @@ document.getElementById("back").addEventListener("click", back);
 
 document.getElementById("choiceBlock").addEventListener("click", getAnswer);
 
+//display registration log in forms
+document.getElementById("signIn").addEventListener("click", function(){
+  document.getElementById("logIn").style.display = "block";
+});
+document.getElementById("signUp").addEventListener("click", function(){
+  document.getElementById("register").style.display = "block";
+});
+
+document.getElementById("regBtn").addEventListener("click", getRegData); // get reg Data
+document.getElementById("signInBtn").addEventListener("click", signIn); 
+
+
+// check if the first password marches the second
+var match = false;
+$("#confirmedPassword").on('keyup', function(){
+  if ($(this).val() == $('#password').val()){
+     $('#message').html('matching').css('color', 'green');
+     match = true;
+  }else{
+    $('#message').html('not matching').css('color', 'red');
+    match = false;
+  }
+});
+
+// get the form data and validate it
+function getRegData(){
+  var userName = $("#register input[name=uName]").val();
+  var userPass = $("#register input[name=uPass]").val();
+  var userConfirmedPass = $("#register input[name=uConfirmedPass]").val();
+  if(userPass!=userConfirmedPass){
+    alert("passwords do not match");
+  }else{
+    // save username and password in localStorage
+    localStorage.setItem(userName, userConfirmedPass);
+    //clear fields
+    document.querySelector("input[name=uName]").value = "";
+    document.querySelector("input[name=uPass]").value = "";
+    document.querySelector("input[name=uConfirmedPass]").value = "";
+    document.getElementById("register").style.display = "none";
+    alert("thanks for signing up");
+  }
+}
+
+function signIn(){
+ var singInName = $("#logIn input[name=uname]").val();
+ var singInPass = $("#logIn input[name=upass]").val();
+ // compare against localStorage data
+
+ var storedPass = localStorage.getItem(singInName);
+ if(singInPass==storedPass){
+  // log in, how the fuck do I do that? I need to associate this user name with result of the quiz and store it in loclaStorage or in DB
+  // store just the percentage of correct answer for this user for now
+  // petya 123
+
+  alert("you are signed in as " + singInName);
+  document.getElementById("signIn").innerHTML = singInName; // display user instead of "sign in"
+  document.querySelector("#logIn input[name=uname]").value = "";
+  document.querySelector("#logIn input[name=upass]").value = "";
+  document.getElementById("logIn").style.display = "none";
+ }else{
+  alert("user name or password is incorrect");
+ }
+}

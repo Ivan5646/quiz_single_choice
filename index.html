@@ -5,9 +5,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="style.css" rel="stylesheet" type="text/css">
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
-<body>
+<body> 
+<div id="regLog">
+  <span id="signIn">Sign in</span> /
+  <span id="signUp">Sign up</span>
+</div>
+
+<!-- for registration -->
+<div id="register" >  
+  <p>Enter your name</p>
+  <input type="text" name="uName">
+  <p>Enter your password</p>
+  <input id="password" type="password" name="uPass">
+  <p>Confirm password</p>
+  <input id="confirmedPassword" type="password" name="uConfirmedPass"><span id='message'></span>
+  <button id="regBtn">register</button>
+</div>
+
+<!-- to log in -->
+<div id="logIn"> 
+  <p>Enter your name</p>
+  <input type="text" name="uname">
+  <p>Enter your password</p>
+  <input type="password" name="upass">
+  <button id="signInBtn">sign in</button>
+</div>
+
+
 <div id="navigation"></div>
 <div id="questionBlock"></div>
 <div id="choiceBlock"></div> 
