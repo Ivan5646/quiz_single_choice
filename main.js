@@ -201,7 +201,6 @@ function highlight(){
   } 
 }
 
-
 function showResult(){
   // remove buttons
   document.getElementById("back").parentNode.removeChild( document.getElementById("back"));
@@ -209,6 +208,14 @@ function showResult(){
   // calculate and display the result 
   var body = document.body;
   var result = numOfCorAnswers / allQuestions.length * 100;
+  // save the result to localStorage for the current user
+  var user = localStorage.getItem("userCredentials");
+  user = JSON.parse(user);
+  if(user!=null){
+    user.result = result + "%";
+    localStorage.setItem("userCredentials", JSON.stringify(user));
+  }
+  // display result
   var resultP = document.createElement("p");
   resultP.setAttribute("id", "resultPId");
   resultText = document.createTextNode("You score is: " + result + " out of 100");
@@ -286,7 +293,7 @@ document.getElementById("signUp").addEventListener("click", function(){
   document.getElementById("register").style.display = "block";
 });
 
-document.getElementById("regBtn").addEventListener("click", getRegData); // get reg Data
+document.getElementById("regBtn").addEventListener("click", registration); 
 document.getElementById("signInBtn").addEventListener("click", signIn); 
 
 
@@ -302,16 +309,26 @@ $("#confirmedPassword").on('keyup', function(){
   }
 });
 
+var now = new Date(); // get the current date
 // get the form data and validate it
-function getRegData(){
-  var userName = $("#register input[name=uName]").val();
+function registration(){
+  var userName = $("#register input[name=uName]").val(); 
   var userPass = $("#register input[name=uPass]").val();
   var userConfirmedPass = $("#register input[name=uConfirmedPass]").val();
   if(userPass!=userConfirmedPass){
     alert("passwords do not match");
   }else{
-    // save username and password in localStorage
-    localStorage.setItem(userName, userConfirmedPass);
+    // store an object in Localstorage with username, password and date 
+    expDate = new Date();
+    expDate.setMonth(expDate.getMonth() + 6); // set the date + 6 months
+    // function to create an obejct for localStorage
+    function storeUser(nameArg, passwordArg, expDateArg){
+      var userOne = {name: nameArg, password: passwordArg, expDate: expDateArg};
+      userOne = JSON.stringify(userOne);
+      localStorage.setItem("userCredentials", userOne);  // save to localStorage
+    }
+    // cal the function
+    storeUser(userName, userConfirmedPass, expDate);
     //clear fields
     document.querySelector("input[name=uName]").value = "";
     document.querySelector("input[name=uPass]").value = "";
@@ -320,24 +337,52 @@ function getRegData(){
     alert("thanks for signing up");
   }
 }
-
 function signIn(){
- var singInName = $("#logIn input[name=uname]").val();
- var singInPass = $("#logIn input[name=upass]").val();
- // compare against localStorage data
+  var singInName = $("#logIn input[name=uname]").val();
+  var singInPass = $("#logIn input[name=upass]").val();
+  // compare against localStorage data
+  var storedUser = JSON.parse(localStorage.getItem(singInName)); // get the stored obj first
 
- var storedPass = localStorage.getItem(singInName);
- if(singInPass==storedPass){
-  // log in, how the fuck do I do that? I need to associate this user name with result of the quiz and store it in loclaStorage or in DB
-  // store just the percentage of correct answer for this user for now
-  // petya 123
-
+  if(singInPass==storedUser.password){
+  currentUser = localStorage.getItem(singInName); //get the current user to use it later for assocating quiz result with it
   alert("you are signed in as " + singInName);
   document.getElementById("signIn").innerHTML = singInName; // display user instead of "sign in"
   document.querySelector("#logIn input[name=uname]").value = "";
   document.querySelector("#logIn input[name=upass]").value = "";
   document.getElementById("logIn").style.display = "none";
+  // show previous result
+  var resultP = document.createElement("p");
+  localStorage.getItem(currentUser);
+  currentUser = JSON.parse(currentUser);
+  resultP.innerHTML = "Your previous result is " + currentUser.result;
+  document.body.appendChild(resultP);
  }else{
   alert("user name or password is incorrect");
  }
 }
+
+// show userResult when pages is loaded
+/*var currentResult = localStorage.getItem(currentUser + "Result"); 
+if(currentResult!=undefined){
+  document.getElementById("userResult").innerHTML = "you previous result:" + currentResult;
+}*/
+
+// sing in user automatically
+function rememberUser(){
+  var user = localStorage.getItem("userCredentials");
+  if(user!=null){
+    user = JSON.parse(user);
+    document.getElementById("signIn").innerHTML = user.name; // display user instead of "sign in"
+    //document.getElementById("logIn").style.display = "none";
+
+    // display result if any
+    if(user.result!=undefined){
+      document.getElementById("userResult").innerHTML = "you previous result is: " + user.result;
+    }
+  }
+}
+
+rememberUser();
+
+
+

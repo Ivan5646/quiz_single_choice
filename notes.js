@@ -26,7 +26,14 @@ var allQuestions = [
 
 
 quiz_single_choice
-- authentificate user
+- authentificate user. How to remember the user. What I need is to associate user name and password with his quiz result
+  keep the user signed in. When page is refreshed check if the date has expired. Ok, but how do I identify the user?
+  http://www.w3schools.com/js/js_cookies.asp  welcome a user
+  searches for a username in cookies if found welcomes him, if not prompts to enter a name. Ok, again if two users? How to identify?
+
+  first I can save user's result and show it to him when he signs in. Done.
+
+
 - make modal windows for login, register forms  
 - style the quiz
 jssexy
@@ -71,12 +78,19 @@ $('#result').html("<br />$('form').serialize():<br />"+ $('form').serialize()+"<
 
 
 Solving problems
+- Authentificate user. How to remember the user. What I need is to associate user name and password with his quiz result
+Remeber the user
+it is about the Date()
+need to associate Date() with user name and then check it if is expired, if not keep the same user logged in unless he logs out
+http://stackoverflow.com/questions/3357553/how-to-store-an-array-in-localstorage
+
+
+
+
+
 - Validate the form. Check if the passwords match before form submitting
 Fucking keep failing. Well two options. 1. Dont give a fuck about all the jquery and ajax $("form").submit shit and grab the data with a js funct. 2. Do all that jquery and ajax shit properly passing data to php file?
 1 option worked
-
-
-
 
 
 - Retrieve data from external JSON
