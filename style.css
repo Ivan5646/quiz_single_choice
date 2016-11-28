@@ -1,8 +1,19 @@
+body{margin: 20px 22px 0px 22px;}
 button{margin-top: 10px;}
 #secondBlock{display: none;}
-#navigation span{margin-right: 6px; display: inline-block; background-color: #e6e6e6; padding: 2px; cursor: not-allowed;}
+#navigation{font-size: 16px; margin: 0 0 14px 0;}
+#navigation span{margin: 0 8px 0 0; display: inline-block; background-color: #e6e6e6; padding: 4px; cursor: not-allowed;}
 form{margin-bottom: 8px;}
 #register{display: none;}
 #logIn{display: none;}
 #regLog{float: right;}
 #signIn, #signUp{text-decoration: underline; cursor: pointer; color:blue;}
+#choiceBlock{margin-bottom: 8px;}
+#choiceBlock span{margin-right: 14px;}
+#choiceBlock input{margin-right: 4px;}
+#questionBlock{font-weight: bold; margin-bottom: 8px;}
+/* styles for the result in the end */
+#resultPId{margin-bottom: 34px; font-weight: bold;}
+.questions{}
+.choices{margin-bottom: 26px;}
+.choices span{margin: 0 14px 0 4px;}

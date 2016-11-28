@@ -26,25 +26,14 @@ var allQuestions = [
 
 
 quiz_single_choice
-- authentificate user. How to remember the user. What I need is to associate user name and password with his quiz result
-  keep the user signed in. When page is refreshed check if the date has expired. Ok, but how do I identify the user?
-  http://www.w3schools.com/js/js_cookies.asp  welcome a user
-  searches for a username in cookies if found welcomes him, if not prompts to enter a name. Ok, again if two users? How to identify?
+- authentificate user. How to remember the user. Done. Can add logout btn, option to see all answers.
+- log out btn
+- modal popup for sign in and sign up forms
 
-  first I can save user's result and show it to him when he signs in. Done.
-
-
-- make modal windows for login, register forms  
-- style the quiz
-jssexy
-- Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
-- Use cookies to remember the user, and show a “Welcome, First Name message when the user returns to the quiz.
 Extra see http://javascriptissexy.com/how-to-learn-javascript-properly/
-- boostrap
+- boostrap, style the quiz
 - show user s rankins
 - and more
-
-
 
 Unlikely yo fullfil / not completed
 - Store the quiz questions in an external JSON file.
@@ -55,9 +44,14 @@ can't get the data out of the $.ajax function. Spent about 6-8 hours on it. Fuck
 
 Improve:
 - let user create his own quiz: input questions and asnwers.
+- refactor code, many repetition code. 
 
 
 Done.
+jssexy
+- Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
+- Use cookies to remember the user, and show a “Welcome, First Name message when the user returns to the quiz.
+
 - check if the passwords match before form submitting
 - delete the numbers from questions. disaplay them on result page
 - mozilla does not work, other browsers are fine. IE gives a warning though. Event was not defined.

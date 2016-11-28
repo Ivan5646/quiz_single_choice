@@ -225,9 +225,11 @@ function showResult(){
     // create a questionDiv, append the question
     var wrapDiv = document.createElement("div"); // create a div for each question and its choices
     var questionP = document.createElement("p");  // create question p
+    questionP.setAttribute("class", "questions");
     var questionText = document.createTextNode(allQuestions[qIndex].sequence + ". " + allQuestions[qIndex].question); // save current question to the p
-    questionP.appendChild(questionText); // appened, not diplayed yet
-    var radioDiv  = document.createElement("div"); // div for radio btns and choices    
+    questionP.appendChild(questionText); // appended, not diplayed yet
+    var radioDiv  = document.createElement("div"); // div for radio btns and choices  
+    radioDiv.setAttribute("class", "choices"); // for further styling
     for(var choiceInd=0; choiceInd<allQuestions[qIndex].choices.length; choiceInd++){ // iterates through choices
       var choiceSpan = document.createElement("span");  // create span element
       var answer = allQuestions[qIndex].userAnswer; // save the user answer
@@ -377,7 +379,7 @@ function rememberUser(){
 
     // display result if any
     if(user.result!=undefined){
-      document.getElementById("userResult").innerHTML = "you previous result is: " + user.result;
+      document.getElementById("userResult").innerHTML = "your previous result is: " + user.result;
     }
   }
 }
