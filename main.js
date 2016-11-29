@@ -291,9 +291,9 @@ document.getElementById("choiceBlock").addEventListener("click", getAnswer);
 document.getElementById("signIn").addEventListener("click", function(){
   document.getElementById("logIn").style.display = "block";
 });
-document.getElementById("signUp").addEventListener("click", function(){
+/*document.getElementById("signUp").addEventListener("click", function(){
   document.getElementById("register").style.display = "block";
-});
+});*/
 
 document.getElementById("regBtn").addEventListener("click", registration); 
 document.getElementById("signInBtn").addEventListener("click", signIn); 
@@ -387,4 +387,32 @@ function rememberUser(){
 rememberUser();
 
 
+// modal windows
+var modal = document.getElementById("myModal")
+var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
+var logIn = document.getElementById("logIn");
+var register = document.getElementById("register");
 
+document.getElementById("signUp").addEventListener("click", function(){
+  modal.style.display = "block";
+  register.style.display = "block";
+  logIn.style.display = "none";
+})
+document.getElementById("signIn").addEventListener("click", function(){
+  modal.style.display = "block";
+  logIn.style.display = "block";
+  register.style.display = "none";
+})
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+span2.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event){ // When the user clicks anywhere outside of the modal, close it
+    if (event.target == modal){
+        modal.style.display = "none";
+    }
+}

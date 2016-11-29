@@ -15,27 +15,6 @@
   <div id="userResult"></div>
 </div>
 
-<!-- for registration -->
-<div id="register" >  
-  <p>Enter your name</p>
-  <input type="text" name="uName">
-  <p>Enter your password</p>
-  <input id="password" type="password" name="uPass">
-  <p>Confirm password</p>
-  <input id="confirmedPassword" type="password" name="uConfirmedPass"><span id='message'></span>
-  <button id="regBtn">register</button>
-</div>
-
-<!-- to log in -->
-<div id="logIn"> 
-  <p>Enter your name</p>
-  <input type="text" name="uname">
-  <p>Enter your password</p>
-  <input type="password" name="upass">
-  <button id="signInBtn">sign in</button>
-</div>
-
-
 <div id="navigation"></div>
 <div id="questionBlock"></div>
 <div id="choiceBlock"></div> 
@@ -43,7 +22,28 @@
 <button id="back">back</button>
 <button id="next">next</button>
 
-
+<div id="myModal" class="modal_bg">
+  <!-- for registration -->
+  <div id="register">
+    <span class="close">x</span>  
+    <p>Enter your name</p>
+    <input type="text" name="uName">
+    <p>Enter your password</p>
+    <input id="password" type="password" name="uPass">
+    <p>Confirm password</p>
+    <input id="confirmedPassword" type="password" name="uConfirmedPass"><span id='message'></span>
+    <button id="regBtn">register</button>
+  </div>
+  <!-- to log in -->
+  <div id="logIn"> 
+    <span class="close">x</span>
+    <p>Enter your name</p>
+    <input type="text" name="uname">
+    <p>Enter your password</p>
+    <input type="password" name="upass">
+    <button id="signInBtn">sign in</button>
+  </div>
+</div>
 <script src="main.js"></script>
 </body>
 

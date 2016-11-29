@@ -4,8 +4,6 @@ button{margin-top: 10px;}
 #navigation{font-size: 16px; margin: 0 0 14px 0;}
 #navigation span{margin: 0 8px 0 0; display: inline-block; background-color: #e6e6e6; padding: 4px; cursor: not-allowed;}
 form{margin-bottom: 8px;}
-#register{display: none;}
-#logIn{display: none;}
 #regLog{float: right;}
 #signIn, #signUp{text-decoration: underline; cursor: pointer; color:blue;}
 #choiceBlock{margin-bottom: 8px;}
@@ -17,3 +15,36 @@ form{margin-bottom: 8px;}
 .questions{}
 .choices{margin-bottom: 26px;}
 .choices span{margin: 0 14px 0 4px;}
+/* modal windows for sign in and sign up forms */
+.modal_bg{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+#register, #logIn{  /* Modal Content */
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
