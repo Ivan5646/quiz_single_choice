@@ -5,7 +5,8 @@ button{margin-top: 10px;}
 #navigation span{margin: 0 8px 0 0; display: inline-block; background-color: #e6e6e6; padding: 4px; cursor: not-allowed;}
 form{margin-bottom: 8px;}
 #regLog{float: right;}
-#signIn, #signUp{text-decoration: underline; cursor: pointer; color:blue;}
+#signIn, #signUp, #logout{text-decoration: underline; cursor: pointer; color:blue;}
+#logoutDiv{float: right;}
 #choiceBlock{margin-bottom: 8px;}
 #choiceBlock span{margin-right: 14px;}
 #choiceBlock input{margin-right: 4px;}

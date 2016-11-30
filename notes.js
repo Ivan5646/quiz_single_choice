@@ -28,7 +28,6 @@ var allQuestions = [
 quiz_single_choice
 - authentificate user. How to remember the user. Done. Can add logout btn, option to see all answers.
 - log out btn
-- modal popup for sign in and sign up forms
 
 Extra see http://javascriptissexy.com/how-to-learn-javascript-properly/
 - boostrap, style the quiz
@@ -52,6 +51,7 @@ jssexy
 - Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
 - Use cookies to remember the user, and show a “Welcome, First Name message when the user returns to the quiz.
 
+- modal popup for sign in and sign up forms
 - check if the passwords match before form submitting
 - delete the numbers from questions. disaplay them on result page
 - mozilla does not work, other browsers are fine. IE gives a warning though. Event was not defined.

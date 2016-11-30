@@ -312,7 +312,7 @@ $("#confirmedPassword").on('keyup', function(){
 });
 
 var now = new Date(); // get the current date
-// get the form data and validate it
+// register user, get the form data and validate it
 function registration(){
   var userName = $("#register input[name=uName]").val(); 
   var userPass = $("#register input[name=uPass]").val();
@@ -337,6 +337,10 @@ function registration(){
     document.querySelector("input[name=uConfirmedPass]").value = "";
     document.getElementById("register").style.display = "none";
     alert("thanks for signing up");
+    document.getElementById("regLog").removeChild(document.getElementById("signUp")); // remove  "sign up"
+    modal.style.display = "none";
+    document.getElementById("signIn").innerHTML = userName; // display user instead of "sign in"
+    LogOutSpan();
   }
 }
 function signIn(){
@@ -358,25 +362,24 @@ function signIn(){
   currentUser = JSON.parse(currentUser);
   resultP.innerHTML = "Your previous result is " + currentUser.result;
   document.body.appendChild(resultP);
+  document.getElementById("regLog").removeChild(document.getElementById("signUp"));// remove  "sign up"
  }else{
   alert("user name or password is incorrect");
  }
 }
 
-// show userResult when pages is loaded
-/*var currentResult = localStorage.getItem(currentUser + "Result"); 
-if(currentResult!=undefined){
-  document.getElementById("userResult").innerHTML = "you previous result:" + currentResult;
-}*/
-
 // sing in user automatically
 function rememberUser(){
+  // log the user out
+
+  //save to localStorage last user name to get his credentials later
+
   var user = localStorage.getItem("userCredentials");
   if(user!=null){
     user = JSON.parse(user);
     document.getElementById("signIn").innerHTML = user.name; // display user instead of "sign in"
-    //document.getElementById("logIn").style.display = "none";
-
+    document.getElementById("regLog").removeChild(document.getElementById("signUp")); // remove "sign up"
+    LogOutSpan();
     // display result if any
     if(user.result!=undefined){
       document.getElementById("userResult").innerHTML = "your previous result is: " + user.result;
@@ -385,6 +388,14 @@ function rememberUser(){
 }
 
 rememberUser();
+
+function LogOutSpan(){
+  var logout = document.createElement("span");
+  logout.setAttribute("id", "logout");
+  var text = document.createTextNode("Log out");
+  logout.appendChild(text);
+  document.getElementById("logoutDiv").appendChild(logout);
+}
 
 
 // modal windows
