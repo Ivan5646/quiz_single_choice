@@ -28,6 +28,7 @@ var allQuestions = [
 quiz_single_choice
 - authentificate user. How to remember the user. Done. Can add logout btn, option to see all answers.
 - log out btn
+- check for name availabilty when signin up
 
 Extra see http://javascriptissexy.com/how-to-learn-javascript-properly/
 - boostrap, style the quiz

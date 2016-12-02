@@ -209,12 +209,14 @@ function showResult(){
   var body = document.body;
   var result = numOfCorAnswers / allQuestions.length * 100;
   // save the result to localStorage for the current user
-  var user = localStorage.getItem("userCredentials");
-  user = JSON.parse(user);
-  if(user!=null){
-    user.result = result + "%";
-    localStorage.setItem("userCredentials", JSON.stringify(user));
-  }
+  if(localStorage.getItem("loggedOut")=="In"){ 
+    var user = localStorage.getItem("userCredentials");
+    user = JSON.parse(user);
+    if(user!=null){
+      user.result = result + "%";
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+    }
+  } 
   // display result
   var resultP = document.createElement("p");
   resultP.setAttribute("id", "resultPId");
@@ -341,13 +343,14 @@ function registration(){
     modal.style.display = "none";
     document.getElementById("signIn").innerHTML = userName; // display user instead of "sign in"
     LogOutSpan();
+    localStorage.setItem("loggedOut", "In");
   }
 }
 function signIn(){
   var singInName = $("#logIn input[name=uname]").val();
   var singInPass = $("#logIn input[name=upass]").val();
   // compare against localStorage data
-  var storedUser = JSON.parse(localStorage.getItem(singInName)); // get the stored obj first
+  var storedUser = JSON.parse(localStorage.getItem("userCredentials")); // get the stored obj first
 
   if(singInPass==storedUser.password){
   currentUser = localStorage.getItem(singInName); //get the current user to use it later for assocating quiz result with it
@@ -358,11 +361,11 @@ function signIn(){
   document.getElementById("logIn").style.display = "none";
   // show previous result
   var resultP = document.createElement("p");
-  localStorage.getItem(currentUser);
-  currentUser = JSON.parse(currentUser);
-  resultP.innerHTML = "Your previous result is " + currentUser.result;
+  resultP.innerHTML = "Your previous result is " + storedUser.result; 
   document.body.appendChild(resultP);
-  document.getElementById("regLog").removeChild(document.getElementById("signUp"));// remove  "sign up"
+  var signUpSpan = document.getElementById("signUp");
+  document.getElementById("regLog").removeChild(signUpSpan);// remove  "sign up".  TypeError: Argument 1 of Node.removeChild is not an object.
+  localStorage.setItem("loggedOut", "In");
  }else{
   alert("user name or password is incorrect");
  }
@@ -370,19 +373,17 @@ function signIn(){
 
 // sing in user automatically
 function rememberUser(){
-  // log the user out
-
-  //save to localStorage last user name to get his credentials later
-
-  var user = localStorage.getItem("userCredentials");
-  if(user!=null){
-    user = JSON.parse(user);
-    document.getElementById("signIn").innerHTML = user.name; // display user instead of "sign in"
-    document.getElementById("regLog").removeChild(document.getElementById("signUp")); // remove "sign up"
-    LogOutSpan();
-    // display result if any
-    if(user.result!=undefined){
-      document.getElementById("userResult").innerHTML = "your previous result is: " + user.result;
+  if(localStorage.getItem("loggedOut")=="In"){
+    var user = localStorage.getItem("userCredentials"); 
+    if(user!=null){
+      user = JSON.parse(user);
+      document.getElementById("signIn").innerHTML = user.name; // display user instead of "sign in"
+      document.getElementById("regLog").removeChild(document.getElementById("signUp")); // remove "sign up"
+      LogOutSpan();
+      // display result if any
+      if(user.result!=undefined){
+        document.getElementById("userResult").innerHTML = "your previous result is: " + user.result;
+      }
     }
   }
 }
@@ -405,11 +406,13 @@ var span2 = document.getElementsByClassName("close")[1];
 var logIn = document.getElementById("logIn");
 var register = document.getElementById("register");
 
-document.getElementById("signUp").addEventListener("click", function(){
-  modal.style.display = "block";
-  register.style.display = "block";
-  logIn.style.display = "none";
-})
+if(document.getElementById("signUp")){
+  document.getElementById("signUp").addEventListener("click", function(){ 
+    modal.style.display = "block";
+    register.style.display = "block";
+    logIn.style.display = "none";
+  })
+}
 document.getElementById("signIn").addEventListener("click", function(){
   modal.style.display = "block";
   logIn.style.display = "block";
@@ -426,4 +429,15 @@ window.onclick = function(event){ // When the user clicks anywhere outside of th
     if (event.target == modal){
         modal.style.display = "none";
     }
+}
+
+if(document.getElementById("logout")){
+  //log user out. 1) remove the username text 2) do not run rememberUser() and do not save his results
+  document.getElementById("logout").addEventListener("click", function(){ // giving an error as no logout
+    console.log("clicked logout");
+    localStorage.setItem("loggedOut", "Out");
+    document.getElementById("signIn").innerHTML = "Sign in";
+    var userResultSpan = document.getElementById("userResult"); // delete "previous result"
+    document.getElementById("regLog").removeChild(userResultSpan); 
+  });
 }
