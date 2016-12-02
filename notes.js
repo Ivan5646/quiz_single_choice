@@ -27,8 +27,9 @@ var allQuestions = [
 
 quiz_single_choice
 - authentificate user. How to remember the user. Done. Can add logout btn, option to see all answers.
-- log out btn
-- check for name availabilty when signin up
+- check for name availabilty when signin up. No need? As the credentials are stored on client side
+- remove node problem Ok?
+- what about more than one user?
 
 Extra see http://javascriptissexy.com/how-to-learn-javascript-properly/
 - boostrap, style the quiz
@@ -52,6 +53,8 @@ jssexy
 - Add user authentication: allow users to log in, and save their login credentials to local storage (HTML5 browser storage).
 - Use cookies to remember the user, and show a “Welcome, First Name message when the user returns to the quiz.
 
+- remove opacity screen
+- log out btn
 - modal popup for sign in and sign up forms
 - check if the passwords match before form submitting
 - delete the numbers from questions. disaplay them on result page

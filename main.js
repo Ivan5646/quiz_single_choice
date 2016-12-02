@@ -363,8 +363,10 @@ function signIn(){
   var resultP = document.createElement("p");
   resultP.innerHTML = "Your previous result is " + storedUser.result; 
   document.body.appendChild(resultP);
-  var signUpSpan = document.getElementById("signUp");
-  document.getElementById("regLog").removeChild(signUpSpan);// remove  "sign up".  TypeError: Argument 1 of Node.removeChild is not an object.
+  if(document.getElementById("signUp")){
+    var signUpSpan = document.getElementById("signUp");
+    document.getElementById("regLog").removeChild(signUpSpan);// remove  "sign up".  TypeError: Argument 1 of Node.removeChild is not an object.
+  }
   localStorage.setItem("loggedOut", "In");
  }else{
   alert("user name or password is incorrect");
@@ -405,6 +407,7 @@ var span = document.getElementsByClassName("close")[0];
 var span2 = document.getElementsByClassName("close")[1];
 var logIn = document.getElementById("logIn");
 var register = document.getElementById("register");
+var signInBtn = document.getElementById("signInBtn");
 
 if(document.getElementById("signUp")){
   document.getElementById("signUp").addEventListener("click", function(){ 
@@ -419,6 +422,9 @@ document.getElementById("signIn").addEventListener("click", function(){
   register.style.display = "none";
 })
 
+signInBtn.onclick = function() {
+    modal.style.display = "none";
+}
 span.onclick = function() {
     modal.style.display = "none";
 }
@@ -431,8 +437,8 @@ window.onclick = function(event){ // When the user clicks anywhere outside of th
     }
 }
 
+//log user out. 1) remove the username text 2) do not run rememberUser() and do not save his results
 if(document.getElementById("logout")){
-  //log user out. 1) remove the username text 2) do not run rememberUser() and do not save his results
   document.getElementById("logout").addEventListener("click", function(){ // giving an error as no logout
     console.log("clicked logout");
     localStorage.setItem("loggedOut", "Out");
