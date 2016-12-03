@@ -210,19 +210,21 @@ function showResult(){
   var result = numOfCorAnswers / allQuestions.length * 100;
   // save the result to localStorage for the current user
   if(localStorage.getItem("loggedOut")=="In"){ 
-    var user = localStorage.getItem("userCredentials");
+    var user = localStorage.getItem(currentUser + "Credentials");
     user = JSON.parse(user);
     if(user!=null){
       user.result = result + "%";
-      localStorage.setItem("userCredentials", JSON.stringify(user));
+      localStorage.setItem(currentUser + "Credentials", JSON.stringify(user));
     }
   } 
   // display result
-  var resultP = document.createElement("p");
+  document.getElementById("userResult").innerHTML = "You score is: " + result + " out of 100";
+
+  /*var resultP = document.createElement("p");
   resultP.setAttribute("id", "resultPId");
   resultText = document.createTextNode("You score is: " + result + " out of 100");
   resultP.appendChild(resultText);
-  body.appendChild(resultP); 
+  body.appendChild(resultP); */
   for(var qIndex=0; qIndex<allQuestions.length; qIndex++){ // iterates questions 
     // create a questionDiv, append the question
     var wrapDiv = document.createElement("div"); // create a div for each question and its choices
@@ -329,7 +331,7 @@ function registration(){
     function storeUser(nameArg, passwordArg, expDateArg){
       var userOne = {name: nameArg, password: passwordArg, expDate: expDateArg};
       userOne = JSON.stringify(userOne);
-      localStorage.setItem("userCredentials", userOne);  // save to localStorage
+      localStorage.setItem(userName + "Credentials", userOne);  // save to localStorage
     }
     // cal the function
     storeUser(userName, userConfirmedPass, expDate);
@@ -344,30 +346,37 @@ function registration(){
     document.getElementById("signIn").innerHTML = userName; // display user instead of "sign in"
     LogOutSpan();
     localStorage.setItem("loggedOut", "In");
+    currentUser = userName; // get the current user name to use it later for assocating quiz result with it
+    localStorage.setItem("lastSignedIn", userName); // save last signed in user name
   }
 }
 function signIn(){
   var singInName = $("#logIn input[name=uname]").val();
   var singInPass = $("#logIn input[name=upass]").val();
   // compare against localStorage data
-  var storedUser = JSON.parse(localStorage.getItem("userCredentials")); // get the stored obj first
+  var storedUser = JSON.parse(localStorage.getItem(singInName + "Credentials")); // get the stored obj first
 
   if(singInPass==storedUser.password){
-  currentUser = localStorage.getItem(singInName); //get the current user to use it later for assocating quiz result with it
+  currentUser = singInName; // get the current user name to use it later for assocating quiz result with it
   alert("you are signed in as " + singInName);
   document.getElementById("signIn").innerHTML = singInName; // display user instead of "sign in"
   document.querySelector("#logIn input[name=uname]").value = "";
   document.querySelector("#logIn input[name=upass]").value = "";
   document.getElementById("logIn").style.display = "none";
   // show previous result
-  var resultP = document.createElement("p");
-  resultP.innerHTML = "Your previous result is " + storedUser.result; 
-  document.body.appendChild(resultP);
-  if(document.getElementById("signUp")){
+  if(storedUser.result!=undefined){
+    document.getElementById("userResult").innerHTML = "Your previous result is " + storedUser.result; 
+
+    /*var resultP = document.createElement("p");
+    resultP.innerHTML = "Your previous result is " + storedUser.result; 
+    document.body.appendChild(resultP);*/
+  }
+  if(document.getElementById("signUp")){ // remove  "sign up". (TypeError: Argument 1 of Node.removeChild is not an object.)
     var signUpSpan = document.getElementById("signUp");
-    document.getElementById("regLog").removeChild(signUpSpan);// remove  "sign up".  TypeError: Argument 1 of Node.removeChild is not an object.
+    document.getElementById("regLog").removeChild(signUpSpan);
   }
   localStorage.setItem("loggedOut", "In");
+  localStorage.setItem("lastSignedIn", singInName); // save last signed in user name
  }else{
   alert("user name or password is incorrect");
  }
@@ -376,7 +385,8 @@ function signIn(){
 // sing in user automatically
 function rememberUser(){
   if(localStorage.getItem("loggedOut")=="In"){
-    var user = localStorage.getItem("userCredentials"); 
+    var lastUser = localStorage.getItem("lastSignedIn"); // get the previously 
+    var user = localStorage.getItem(lastUser + "Credentials"); // signed in user
     if(user!=null){
       user = JSON.parse(user);
       document.getElementById("signIn").innerHTML = user.name; // display user instead of "sign in"
@@ -409,7 +419,7 @@ var logIn = document.getElementById("logIn");
 var register = document.getElementById("register");
 var signInBtn = document.getElementById("signInBtn");
 
-if(document.getElementById("signUp")){
+if(document.getElementById("signUp")){ // seems like this condition won't work... returnung false anyway
   document.getElementById("signUp").addEventListener("click", function(){ 
     modal.style.display = "block";
     register.style.display = "block";
@@ -442,8 +452,16 @@ if(document.getElementById("logout")){
   document.getElementById("logout").addEventListener("click", function(){ // giving an error as no logout
     console.log("clicked logout");
     localStorage.setItem("loggedOut", "Out");
-    document.getElementById("signIn").innerHTML = "Sign in";
-    var userResultSpan = document.getElementById("userResult"); // delete "previous result"
-    document.getElementById("regLog").removeChild(userResultSpan); 
+    document.getElementById("signIn").innerHTML = "Sign in";  // instead of username
+    document.getElementById("userResult").innerHTML = ""; // delete user result
+
+    document.getElementById("logout").remove(); // delete "log out" 
+    // add "sing up". The modal does no work with it
+    /*var signUpSpanNew = document.createElement("span");
+    signUpSpanNew.setAttribute("id", "signUp");
+    var signUpText = document.createTextNode("Sign up");
+    signUpSpanNew.appendChild(signUpText);
+    document.getElementById("regLog").appendChild(signUpSpanNew);*/
+
   });
 }
